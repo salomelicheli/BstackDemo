@@ -1,0 +1,32 @@
+[
+  {
+    "browser": "chrome",
+    "browserVersion": "latest",
+    "os": "Windows",
+    "osVersion": "10",
+    "name": "Chrome - Windows 10",
+    "build": "playwright-multibrowser-java",
+    "userName": "salomelicheli_8hlxdq",
+    "accessKey": "AP7sxHYTsZVEpLGFhqYJ"
+  },
+  {
+    "browser": "playwright-firefox",
+    "browserVersion": "latest",
+    "os": "Windows",
+    "osVersion": "10",
+    "name": "Firefox - Windows 10",
+    "build": "playwright-multibrowser-java",
+    "userName": "salomelicheli_8hlxdq",
+    "accessKey": "AP7sxHYTsZVEpLGFhqYJ"
+  },
+  {
+    "browser": "edge",
+    "browserVersion": "latest",
+    "os": "Windows",
+    "osVersion": "10",
+    "name": "Edge - Windows 10",
+    "build": "playwright-multibrowser-java",
+    "userName": "salomelicheli_8hlxdq",
+    "accessKey": "AP7sxHYTsZVEpLGFhqYJ"
+  }
+]
