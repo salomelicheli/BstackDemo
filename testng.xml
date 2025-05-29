@@ -22,11 +22,11 @@
         </classes>
     </test>
 
-<!--    <test name="Safari Test">-->
-<!--        <parameter name="browser" value="safari"/>-->
-<!--        <classes>-->
-<!--            <class name="SampleTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Safari Test">
+        <parameter name="browser" value="playwright-webkit"/>
+        <classes>
+            <class name="SampleTest"/>
+        </classes>
+    </test>
 
 </suite>

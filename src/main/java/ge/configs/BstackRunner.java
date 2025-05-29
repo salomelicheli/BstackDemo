@@ -1,10 +1,18 @@
 package ge.configs;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.playwright.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.json.JSONObject;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
+import org.testng.internal.TestResult;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -31,22 +39,20 @@ public class BstackRunner {
         playwright = Playwright.create();
         BrowserType browserType = playwright.chromium();
         HashMap<String, Object> capabilitiesObject = new HashMap<>();
-        System.out.println(browserName);
         Machine machine;
         if(browserName != null) {
             machine = browserStackJSonMap.get(browserName);
         } else {
             machine = browserStackJSonMap.get("chrome");
         }
-        System.out.println(machine.getBrowser());
         capabilitiesObject.put("browser", machine.getBrowser());
         capabilitiesObject.put("browser_version", machine.getBrowserVersion());
         capabilitiesObject.put("os", machine.getOs());
         capabilitiesObject.put("os_version", machine.getOsVersion());
         capabilitiesObject.put("name", machine.getName());
         capabilitiesObject.put("build", machine.getBuild());
-        capabilitiesObject.put("browserstack.username", "SOME_USERNAME");
-        capabilitiesObject.put("browserstack.accessKey", "SOME_ACCESS_KEY");
+        capabilitiesObject.put("browserstack.username", "USERNAME");
+        capabilitiesObject.put("browserstack.accessKey", "ACCESS_KEY");
         String capabilities = null;
         JSONObject jsonCaps = new JSONObject(capabilitiesObject);
         try {
@@ -77,6 +83,20 @@ public class BstackRunner {
         if(playwright != null) {
             playwright.close();
         }
+    }
+
+    @AfterClass(alwaysRun = true)
+    protected void adjustStatus(ITestContext result) {
+        if(!result.getFailedTests().getAllResults().isEmpty()) {
+            changeStatus("failed");
+        }
+        else {
+            changeStatus("passed");
+        }
+    }
+
+    private void changeStatus(String status) {
+        page.evaluate("_ => {}", "browserstack_executor: { \"action\": \"setSessionStatus\", \"arguments\": { \"status\": \"" + status + "\"}}");
     }
 
     private Map<String, Machine> convertJsonFileToMap(File jsonFile, Map<String, Machine> map) {

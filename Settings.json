@@ -5,9 +5,7 @@
     "os": "Windows",
     "osVersion": "10",
     "name": "Chrome - Windows 10",
-    "build": "playwright-multibrowser-java",
-    "userName": "salomelicheli_8hlxdq",
-    "accessKey": "AP7sxHYTsZVEpLGFhqYJ"
+    "build": "playwright-multibrowser-java"
   },
   {
     "browser": "playwright-firefox",
@@ -15,9 +13,7 @@
     "os": "Windows",
     "osVersion": "10",
     "name": "Firefox - Windows 10",
-    "build": "playwright-multibrowser-java",
-    "userName": "salomelicheli_8hlxdq",
-    "accessKey": "AP7sxHYTsZVEpLGFhqYJ"
+    "build": "playwright-multibrowser-java"
   },
   {
     "browser": "edge",
@@ -25,8 +21,14 @@
     "os": "Windows",
     "osVersion": "10",
     "name": "Edge - Windows 10",
-    "build": "playwright-multibrowser-java",
-    "userName": "salomelicheli_8hlxdq",
-    "accessKey": "AP7sxHYTsZVEpLGFhqYJ"
+    "build": "playwright-multibrowser-java"
+  },
+  {
+    "browser": "playwright-webkit",
+    "browserVersion": "latest",
+    "os": "OS X",
+    "osVersion": "Sequoia",
+    "name": "Safari - macOS Sequoia",
+    "build": "playwright-multibrowser-java"
   }
 ]
