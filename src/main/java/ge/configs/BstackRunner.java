@@ -51,8 +51,8 @@ public class BstackRunner {
         capabilitiesObject.put("os_version", machine.getOsVersion());
         capabilitiesObject.put("name", machine.getName());
         capabilitiesObject.put("build", machine.getBuild());
-        capabilitiesObject.put("browserstack.username", "salomelicheli_8HlXDQ");
-        capabilitiesObject.put("browserstack.accessKey", "AP7sxHYTsZVEpLGFhqYJ");
+        capabilitiesObject.put("browserstack.username", "USERNAME");
+        capabilitiesObject.put("browserstack.accessKey", "ACCESS_KEY");
         String capabilities = null;
         JSONObject jsonCaps = new JSONObject(capabilitiesObject);
         try {
