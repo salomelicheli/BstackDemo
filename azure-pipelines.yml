@@ -36,14 +36,14 @@ jobs:
       inputs:
         mavenPomFile: 'pom.xml'
         javaHomeOption: 'JDKVersion'
+        mavenOptions: '-Xmx3072m'
         options: '-DskipTests'
         jdkVersionOption: '1.17'
         jdkArchitectureOption: 'x64'
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        publishJUnitResults: true
         mavenVersionOption: Default
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        goals: 'clean install'
+        goals: 'package'
 
     - script: |
         echo "Running Selenide TestNG tests"
