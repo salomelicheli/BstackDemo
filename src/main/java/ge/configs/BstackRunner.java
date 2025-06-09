@@ -12,7 +12,6 @@ import lombok.Setter;
 import org.json.JSONObject;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import org.testng.internal.TestResult;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -39,19 +38,14 @@ public class BstackRunner {
         playwright = Playwright.create();
         BrowserType browserType = playwright.chromium();
         HashMap<String, Object> capabilitiesObject = new HashMap<>();
-        Machine machine;
-        if(browserName != null) {
-            machine = browserStackJSonMap.get(browserName);
-        } else {
-            machine = browserStackJSonMap.get("chrome");
-        }
+        Machine machine = browserName != null ? browserStackJSonMap.get(browserName) : browserStackJSonMap.get("chrome");
         capabilitiesObject.put("browser", machine.getBrowser());
         capabilitiesObject.put("browser_version", machine.getBrowserVersion());
         capabilitiesObject.put("os", machine.getOs());
         capabilitiesObject.put("os_version", machine.getOsVersion());
         capabilitiesObject.put("name", machine.getName());
-//        capabilitiesObject.put("build", machine.getBuild());
-        capabilitiesObject.put("build", System.getenv("BROWSERSTACK_BUILD_NAME"));
+        String build = System.getenv("BROWSERSTACK_BUILD_NAME") == null ? machine.getBuild() : System.getenv("BROWSERSTACK_BUILD_NAME");
+        capabilitiesObject.put("build", build);
         capabilitiesObject.put("browserstack.username", "salomelicheli_8HlXDQ");
         capabilitiesObject.put("browserstack.accessKey", "AP7sxHYTsZVEpLGFhqYJ");
         String capabilities = null;
@@ -114,3 +108,24 @@ public class BstackRunner {
         return map;
     }
 }
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+class Machine {
+    @JsonProperty("browser")
+    private String browser;
+    @JsonProperty("browserVersion")
+    private String browserVersion;
+    @JsonProperty("os")
+    private String os;
+    @JsonProperty("osVersion")
+    private String osVersion;
+    @JsonProperty("build")
+    private String build;
+    @JsonProperty("name")
+    private String name;
+}
+
