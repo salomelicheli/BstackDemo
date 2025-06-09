@@ -10,33 +10,47 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: BrowserStackConfig@0
-  inputs:
-    BrowserStackServiceEndPoint: 'BrowserStackConnection'
-    browserstackLocal: true
+jobs:
+- job: execute_tests
+  displayName: 'Run Browserstack'
+  steps:
+    - script: |
+        echo "Setting up environment variables"
+        echo "##vso[task.setvariable variable=SOME_KEY]$(SOME_KEY)"
+        echo "Printing secret token"
+        echo $(SOME_KEY)
+      displayName: 'Setup Environment Variables'
+      env:
+        SECRET_TOKEN: $(secretKey)
 
-- task: BrowserStackConfig@0
-  inputs:
-    BrowserStackServiceEndPoint: 'BrowserStackConnection'
+    - task: BrowserStackConfig@0
+      inputs:
+        BrowserStackServiceEndPoint: 'BrowserStackConnection'
+        browserstackLocal: true
 
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    - task: BrowserStackConfig@0
+      inputs:
+        BrowserStackServiceEndPoint: 'BrowserStackConnection'
 
-- script: |
-    echo "Running Selenide TestNG tests"
-    mvn test -Dsurefire.suiteXmlFiles=$(System.DefaultWorkingDirectory)/testng.xml
-  displayName: 'Run Selenide TestNG Tests'
-  continueOnError: true
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        javaHomeOption: 'JDKVersion'
+        options: '-DskipTests'
+        jdkVersionOption: '1.17'
+        jdkArchitectureOption: 'x64'
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        mavenVersionOption: Default
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        goals: 'clean install'
 
-- task: BrowserStackResults@1
-  inputs:
-    browserstackProduct: 'automate'
+    - script: |
+        echo "Running Selenide TestNG tests"
+        mvn test -Dsurefire.suiteXmlFiles=$(System.DefaultWorkingDirectory)/testng.xml
+      displayName: 'Run Selenide TestNG Tests'
+      continueOnError: true
+
+    - task: BrowserStackResults@1
+      inputs:
+        browserstackProduct: 'automate'
