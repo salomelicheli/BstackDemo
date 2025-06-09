@@ -50,6 +50,9 @@ jobs:
         mvn test -Dsurefire.suiteXmlFiles=$(System.DefaultWorkingDirectory)/testng.xml
       displayName: 'Run Selenide TestNG Tests'
       continueOnError: true
+      env:
+        BROWSERSTACK_BUILD_NAME: "BS-test-build-CI/CD"
+      
 
     - task: BrowserStackResults@1
       inputs:
