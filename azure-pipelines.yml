@@ -28,10 +28,6 @@ jobs:
         BrowserStackServiceEndPoint: 'BrowserStackConnection'
         browserstackLocal: true
 
-    - task: BrowserStackConfig@0
-      inputs:
-        BrowserStackServiceEndPoint: 'BrowserStackConnection'
-
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
@@ -51,8 +47,9 @@ jobs:
       displayName: 'Run Selenide TestNG Tests'
       continueOnError: true
       env:
-        BROWSERSTACK_BUILD_NAME: "BS-test-build-CI/CD"
-      
+        BROWSERSTACK_BUILD_NAME: 'AzurePipeline-Build'
+
+    - task: BrowserStackStopLocal@0
 
     - task: BrowserStackResults@1
       inputs:
