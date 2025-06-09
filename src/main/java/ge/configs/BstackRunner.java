@@ -50,7 +50,8 @@ public class BstackRunner {
         capabilitiesObject.put("os", machine.getOs());
         capabilitiesObject.put("os_version", machine.getOsVersion());
         capabilitiesObject.put("name", machine.getName());
-        capabilitiesObject.put("build", machine.getBuild());
+//        capabilitiesObject.put("build", machine.getBuild());
+        capabilitiesObject.put("build", System.getenv("BROWSERSTACK_BUILD_NAME"));
         capabilitiesObject.put("browserstack.username", "salomelicheli_8HlXDQ");
         capabilitiesObject.put("browserstack.accessKey", "AP7sxHYTsZVEpLGFhqYJ");
         String capabilities = null;
